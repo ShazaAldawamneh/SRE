@@ -2,19 +2,25 @@ import setup
 import json_passing
 
 setup.setup_bus(20)
-setup.setup_radom_routes(5)
+setup.setup_random_routes(5)
 
+
+''' function to get next available bus that's 'Parked' and returns its id'''
 def getAvaliableBus():
     bueses = json_passing.read_bus()
     for i in bueses:
         if bueses[i]["status"] =="parked":
-            return i 
+            return i
+
+''' Set the next bus to a route given. A to B, or B to A'''
 def setNextBusToRoute(routeID,direction):
     busID = getAvaliableBus()
     json_passing.update_bus(busID,"routeID",routeID)
     json_passing.update_bus(busID,"status",direction)
 
 
+
+''' Sends 2 bus per route at the beginning...'''
 def start():
     routes = json_passing.read_routes()
     for i in routes:

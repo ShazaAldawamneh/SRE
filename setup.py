@@ -1,5 +1,8 @@
 import json_passing
 from random import randint
+
+''' Sets the number of buses to 'Parked' 
+id's start at 0'''
 def setup_bus(num_buses):
     outDict = {}
     for i in range(num_buses):
@@ -12,8 +15,8 @@ def setup_bus(num_buses):
         outDict[busID] = temp
     json_passing.export_bus(outDict)
 
-
-def setup_radom_routes(num_routes):
+''' sets up random values for testing '''
+def setup_random_routes(num_routes):
     outDict = {}
     for i in range(num_routes):
         temp = {}
@@ -25,4 +28,3 @@ def setup_radom_routes(num_routes):
         outDict[routeID] = temp
     json_passing.export_routes(outDict)
 
-setup_radom_routes(1)
