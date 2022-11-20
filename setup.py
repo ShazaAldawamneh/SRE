@@ -1,19 +1,15 @@
 import json_passing
 from random import randint
+from bus import Bus
 def setup_bus(num_buses):
-    outDict = {}
+    outList = []
     for i in range(num_buses):
-        temp = {}
-        temp["charge"] = 100
-        temp["lastJourney"] = False
-        temp["status"] = "parked"
-        temp["routeID"] = None
+        outList.append(Bus(i))
+    return outList
+            
+
         
-
-        busID = i
-        outDict[busID] = temp
-    json_passing.export_bus(outDict)
-
+        
 
 def setup_radom_routes(num_routes):
     outDict = {}
