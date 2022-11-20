@@ -1,38 +1,40 @@
 class Bus:
-    def __init__(self, id):
-        self.id = id
+    def __init__(self, bus_id):
+        self.id = bus_id
         self.charge = 100
         self.status = "parked"
         self.routeID = None
         self.endOfJourney = False
 
-    def getID(self):
+    def get_bus_id(self):
         return self.id
 
-    def setCharge(self,newCharge) -> int:
-        self.charge = newCharge
+    def set_charge(self, new_charge):
+        self.charge = new_charge
 
-    def getCharge(self):
+    def get_charge(self) -> int:
         return self.charge
 
-    def setStatus(self,newStatus) -> str:
-        self.status = newStatus
-    
-    def getStatus (self):
+    def set_status(self, new_status):
+        self.status = new_status
+
+    def get_status(self) -> str:
         return self.status
-    def setRouteID(self,newRoute) -> str:
-        self.routeID = newRoute
-    
-    def getRouteID(self):
+
+    def set_route_id(self, new_route):
+        self.routeID = new_route
+
+    def get_route_id(self):
         return self.routeID
-    
-    def getEndOfJourney(self):
+
+    def get_end_of_journey(self):
         return self.endOfJourney
-    def endOfJourneyFalse(self):
+
+    def end_of_journey_false(self):
         self.endOfJourney = False
-    def endOfJourneyTrue(self):
+
+    def end_of_journey_true(self):
         self.endOfJourney = True
 
     def __str__(self):
-        return (str(self.id)+str(self.charge)+str(self.status)+str(self.routeID)+str(self.endOfJourney))
-
+        return str(self.id) + str(self.charge) + str(self.status) + str(self.routeID) + str(self.endOfJourney)
