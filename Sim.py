@@ -5,7 +5,7 @@ from random import randint
 
 
 class Sim:
-    def __int__(self, count, bus_amount, route_amount):
+    def __init__(self, count, bus_amount, route_amount):
         self.count = count
         self.bus_amount = bus_amount
         self.route_amount = route_amount
@@ -75,11 +75,9 @@ class Sim:
 
                         else:
                             bus.set_status("B-A")
-                            # bus.set_status("B-A")
-                            # json_passing.update_bus(i, "status", "B-A")  # if neither is true tells bus to continue
 
                     elif bus.get_status() == "B-A":  # repeat as above but other direction
-                        current_route = Parser.get_route(bus.get_route_id())  # retrives route information
+                        current_route = Parser.get_route(bus.get_route_id())  # retrieves route information
 
                         charge = bus.get_charge() - current_route["B-A"]
                         bus.set_charge(charge)
@@ -101,12 +99,14 @@ class Sim:
                         else:
                             bus.set_status("A-B")
 
-                    elif bus.get_status() == "depot-A":  # checks if bus has been driving from depot to route, if true tells to begin route
+                    elif bus.get_status() == "depot-A":  # checks if bus has been driving from depot to route,
+                        # if true tells to begin route
                         bus.set_status("A-B")
                     elif bus.get_status() == "depot-B":  # repeat for other direction
                         bus.get_status("A-B")
 
-                    elif bus.get_status() == "A-Depot" or bus.get_status() == "B-Depot":  # checks if bus has just entered depot
+                    elif bus.get_status() == "A-Depot" or bus.get_status() == "B-Depot":  # checks if bus has just
+                        # entered depot
                         bus.set_status("queueing")
                         self.charge_queue.append(bus)  # adds to charging queue
 
@@ -116,9 +116,9 @@ class Sim:
 
                     charger.reduce_charge_time()
                     if charger.get_charge_time() == 0:
-                        outbus = charger.get_bus()
-                        outbus.set_status("parked")
-                        outbus.set_charge(100)
+                        out_bus = charger.get_bus()
+                        out_bus.set_status("parked")
+                        out_bus.set_charge(100)
                         charger.set_bus(None)
                 if charger.get_bus() is None and self.charge_queue:
                     in_bus = self.charge_queue.pop()
@@ -128,4 +128,5 @@ class Sim:
 
 
 if __name__ == "__main__":
-    pass
+    Sim(1, 50, 10)
+    Sim.loop()

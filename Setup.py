@@ -16,7 +16,7 @@ def setup_random_routes(num_routes):
         temp = {"A-B": randint(5, 20), "B-A": randint(5, 20), "A-Depot": randint(0, 15), "B-Depot": randint(0, 15)}
         route_id = i
         out_dict[route_id] = temp
-    json_passing.export_routes(out_dict)
+    Parser.export_routes(out_dict)
 
 
 setup_random_routes(1)

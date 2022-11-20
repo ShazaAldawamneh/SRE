@@ -4,7 +4,7 @@ import json
 def json_export(location, dict_out):
     outfile = open(location, "w")
     outfile.write(json.dumps(dict_out))
-    outfile.close
+    outfile.close()
 
 
 def json_read(location):
@@ -17,7 +17,7 @@ def json_read(location):
 def json_updater(location, id_, key, value):
     infile = open(location, "r+")
     db = json.loads(infile.read())
-    infile.close
+    infile.close()
 
     changed_item = db[str(id_)]
     changed_item[key] = value
