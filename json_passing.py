@@ -1,10 +1,10 @@
 import json
 
-def json_export(location, listOut):
+def json_export(location, dictOut):
     outfile = open(location,"w")
 
 
-    outfile.write(json.dumps(listOut))
+    outfile.write(json.dumps(dictOut))
     outfile.close
 
 def json_read(location):
@@ -13,13 +13,33 @@ def json_read(location):
     infile.close()
     return json.loads(x)
 
-def json_updater(location, key, value):
+def json_updater(location,id, key, value):
     infile = open(location,"r+")
     db = json.loads(infile.read())
     infile.close
-    db[key] = value
+
+    changedItem =db[str(id)]
+    changedItem[key] = value
     outfile = open(location,"w")
     outfile.write(json.dumps(db))
     outfile.close()
+   
 
+
+def read_routes():
+    temp =  json_read("routes.json")
+    returnDict = {}
+    for count, value in enumerate(temp):   
+        returnDict[count] = temp[value]
+    return returnDict
+
+def export_routes(dictOut):
+    json_export("routes.json",dictOut)
+
+def update_routes(id,key,value):
+    json_updater("routes.json",id,key,value)
+
+def get_route(id):
+    routes = read_routes()
+    return routes[id]
 
