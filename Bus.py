@@ -15,7 +15,7 @@ class Bus:
         self.status = "Parked"
         self.route_id = None
         self.end_of_journey = False
-        self.states = ["Parked", "Queued", "Charging", "In Service"]
+        self.states = ["PARKED", "QUEUED", "CHARGING", "IN_SERVICE"]
 
     def get_bus_id(self) -> int:
         """ Returns bus id. """
@@ -50,7 +50,7 @@ class Bus:
         """ Set route id associated with a Bus object. """
         self.route_id = new_route
 
-    def set_end_of_journey_false(self, end_flag: bool) -> None:
+    def set_end_of_journey(self, end_flag: bool) -> None:
         """ Set end of journey flag. """
         self.end_of_journey = end_flag
 
