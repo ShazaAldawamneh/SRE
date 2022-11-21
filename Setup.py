@@ -4,6 +4,7 @@ from Bus import Bus
 
 
 def setup_bus(num_buses):
+    """ #TODO documentation. """
     out_list = []
     for i in range(num_buses):
         out_list.append(Bus(i))
@@ -11,6 +12,7 @@ def setup_bus(num_buses):
 
 
 def setup_random_routes(num_routes):
+    """ #TODO documentation. """
     out_dict = {}
     for i in range(num_routes):
         temp = {"A-B": randint(5, 20), "B-A": randint(5, 20), "A-Depot": randint(0, 15), "B-Depot": randint(0, 15)}
