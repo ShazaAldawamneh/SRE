@@ -1,4 +1,6 @@
 class ChargingStation:
+    """ Represents a Charging Station """
+
     def __init__(self):
         """ Create a charging station instance.
         Args:
