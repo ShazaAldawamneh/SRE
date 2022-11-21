@@ -1,6 +1,7 @@
 import Parser
 from random import randint
 from Bus import Bus
+from Enums import Direction
 
 
 def setup_bus(num_buses):
@@ -15,7 +16,7 @@ def setup_random_routes(num_routes):
     """ #TODO documentation. """
     out_dict = {}
     for i in range(num_routes):
-        temp = {"A-B": randint(5, 20), "B-A": randint(5, 20), "A-Depot": randint(0, 15), "B-Depot": randint(0, 15)}
+        temp = {Direction.A_TO_B: randint(5, 20), Direction.B_TO_A: randint(5, 20), Direction.A_TO_DEPOT: randint(0, 15), Direction.B_TO_DEPOT: randint(0, 15)}
         route_id = i
         out_dict[route_id] = temp
     Parser.export_routes(out_dict)

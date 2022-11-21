@@ -1,3 +1,6 @@
+from Enums import State, Direction
+
+
 class Bus:
     """ A Bus object. """
 
@@ -5,17 +8,17 @@ class Bus:
         """ Create a bus instance.
 
         Args:
-            bus_id-    unique id for each bus
+            bus_id -    unique id for each bus
             charge -    battery level (min:0, max:100)
             status -    default state of a bus
             route_id -  unique route id associated with a bus
         """
         self.bus_id = bus_id
         self.charge = 100
-        self.status = "Parked"
+        self.status = State.PARKED
         self.route_id = None
         self.end_of_journey = False
-        self.states = ["Parked", "Queued", "Charging", "In Service"]
+        self.states = [State.PARKED, State.QUEUED, State.CHARGING, State.IN_SERVICE]
 
     def get_bus_id(self) -> int:
         """ Returns bus id. """
@@ -25,7 +28,7 @@ class Bus:
         """ Return bus charge level. """
         return self.charge
 
-    def get_status(self) -> str:
+    def get_status(self) -> State:
         """ Return bus status. """
         return self.status
 
@@ -39,13 +42,18 @@ class Bus:
 
     def set_charge(self, new_charge: int) -> None:
         """ Set charge level. """
+        # if new_charge >= 0 or new_charge <= 100:
         self.charge = new_charge
+        # else:
+            # raise ValueError("Wrong Value")
 
-    def set_status(self, new_status: str) -> None:
+
+    def set_status(self, new_status: State) -> None:
         """ Set bus status. """
         if new_status in self.states:
             self.status = new_status
-
+        else:
+            raise ValueError("Wrong State")
     def set_route_id(self, new_route: int) -> None:
         """ Set route id associated with a Bus object. """
         self.route_id = new_route
@@ -64,8 +72,10 @@ class Bus:
 if __name__ == "__main__":
     test = Bus(1)
     test2 = Bus(2)
-    test2.set_status(3)
-    test2.set_status("Charging")
-
+    # test2.set_status(3)
+    print(test2)
+    test2.set_status(State.IN_SERVICE)
+    test2.set_charge("str")
+    # test2.set_status(2)
     print(test2)
     # print(test)
