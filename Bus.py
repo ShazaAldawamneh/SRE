@@ -12,10 +12,10 @@ class Bus:
         """
         self.bus_id = bus_id
         self.charge = 100
-        self.status = "Parked"
+        self.status = "PARKED"
         self.route_id = None
         self.end_of_journey = False
-        self.states = ["PARKED", "QUEUED", "CHARGING", "IN_SERVICE"]
+        self.states = ["PARKED", "QUEUED", "CHARGING", "A-B","B-A","A-Depot","B-Depot","Depot-A","Depot-B"]
 
     def get_bus_id(self) -> int:
         """ Returns bus id. """

@@ -13,7 +13,7 @@ class Sim:
         self.bus_amount = bus_amount
         self.route_amount = route_amount
         self.buses = Setup.setup_bus(bus_amount)
-        self.routes = Setup.setup_random_routes(route_amount)
+        Setup.setup_random_routes(route_amount)
         self.charge_queue = [] # queue class needed
         self.chargers = []
 
@@ -32,8 +32,12 @@ class Sim:
     def get_available_bus(self):
         """ #TODO Control flow graph here... and documentation. """
         for bus in self.buses:
+            
             if bus.get_status() == "PARKED":  # and battery full?
                 return bus
+        else:
+            
+            return self.charger_drop_early()
 
     # sets the next bus that is parked to a particular route in a particular direction
     def set_next_bus_to_route(self, route_id, direction):
@@ -41,6 +45,8 @@ class Sim:
         bus = self.get_available_bus() # returning None
         bus.set_route_id(route_id)
         bus.set_status(direction)
+        #print(bus)
+
 
     # sets every direction of every route to have a bus
     # #TODO needs to be fixed
@@ -51,17 +57,49 @@ class Sim:
             self.set_next_bus_to_route(i, "A-B")
             self.set_next_bus_to_route(i, "B-A")
 
-    # start_of_day()
+    def charger_Check(self,charger):
+        if charger.get_bus() is not None:
+            charger.reduce_charge_time()
+            if charger.get_charge_time() == 0:
+                out_bus = charger.get_bus()
+                out_bus.set_status("PARKED")
+                out_bus.set_charge(100)
+                charger.set_bus(None)
+                charger.set_charge_time == None
+        if charger.get_bus() is None and self.charge_queue:
+            in_bus = self.charge_queue.pop()
+            in_bus.set_status("CHARGING")
+            charger.set_bus(in_bus)
+            charger.set_charge_time(5)
+
+    def charger_drop_early(self):
+  
+        for charge_time in range(1,6):
+            for charger in self.chargers:
+                #print(charger.get_charge_time())
+                
+           
+                if charger.get_charge_time() ==charge_time:
+                    print(charger.get_charge_time())
+                    out_bus= charger.get_bus()
+                   # print(charge_time)
+                    out_bus.set_charge(100-(20*charge_time))
+                    charger.set_bus(None)
+                    charger.set_charge_time(None)
+                    print(out_bus)
+                    return out_bus
 
     def loop(self):
         """ #TODO documentation. """
 
         while True:
             self.count += 1
-            print(self.count)
+            #print(self.count)
             for bus in self.buses:
+                
 
-                if randint(0, self.route_amount * 2) == 0:  # random check, bus has reached the end
+                if randint(0, self.route_amount * 2) == 0:  # random check, bus has reached the end4
+
                     # TODO wrap this in a function
                     '''
                     Logic Breakdown. 
@@ -70,6 +108,7 @@ class Sim:
                     '''
                     # def function(status):
                     if bus.get_status() == "A-B":  # checks direction
+                        
                         # gets current route (maybe different getter?) then parses the json file **
                         current_route = Parser.get_route(bus.get_route_id())  # retrieves route information
                         # performs the operation here
@@ -80,7 +119,7 @@ class Sim:
                         if bus.get_end_of_journey():  # checks if bus should go back to depot
                             bus.set_end_of_journey(False)
                             bus.set_status("B-Depot")
-                            print(bus)
+
                             # check battery level
                             # check other details
                             # should do more maybe...?
@@ -89,11 +128,13 @@ class Sim:
                         # uni test for this logic
                         elif current_route["A-B"] + current_route["B-A"] + current_route[
                             "B-Depot"] < charge:  # checks if bus should start journey
-                            bus.end_of_journey(True)  # fix wrong direction
+                            bus.set_end_of_journey(True)  # fix wrong direction
                             bus.set_status("B-A")
                             next_bus = self.get_available_bus()  # gets new bus to replace previous
+                            
                             next_bus.set_route_id(bus.get_route_id())
-                            next_bus.set_status("depot-A")
+                            next_bus.set_status("Depot-A")
+                            
                         else:
                             bus.set_status("B-A")
 
@@ -103,44 +144,34 @@ class Sim:
                         bus.set_charge(charge)
 
                         if bus.get_end_of_journey():
-                            bus.set_end_of_journey_false()
+                            bus.set_end_of_journey(False)
                             bus.set_status("A-Depot")
 
                         elif current_route["B-A"] + current_route["A-B"] + current_route["A-Depot"] < charge:
-                            bus.end_of_journey_true()
+                            bus.set_end_of_journey(True)
                             bus.set_status("A-B")
                             next_bus = self.get_available_bus()
                             next_bus.set_route_id(bus.get_route_id())
-                            next_bus.set_status("depot-A")
+                            next_bus.set_status("Depot-B")
                         else:
                             bus.set_status("A-B")
 
-                    elif bus.get_status() == "depot-A":  # checks if bus has been driving from depot to route,
+                    elif bus.get_status() == "Depot-A":  # checks if bus has been driving from depot to route,
                         # if true tells to begin route
                         bus.set_status("A-B")
-                    elif bus.get_status() == "depot-B":  # repeat for other direction
-                        bus.get_status("A-B")
+                    elif bus.get_status() == "Depot-B":  # repeat for other direction
+                        bus.set_status("A-B")
 
                     elif bus.get_status() == "A-Depot" or bus.get_status() == "B-Depot":  # checks if bus has just
                         # entered depot
                         bus.set_status("QUEUED")
-                        self.charge_queue.append(bus)  # adds to charging queue
+                        self.charge_queue.append(bus)  # adds to charging queue'
 
             # control flow graph
             # TODO CFG
             for charger in self.chargers:  # iterates over charger to fill and then remove buses from them
-                if charger.get_bus_id() is not None:
-                    charger.reduce_charge_time()
-                    if charger.get_charge_time() == 0:
-                        out_bus = charger.get_bus_id()
-                        out_bus.set_status("PARKED")
-                        out_bus.set_charge(100)
-                        charger.set_bus(None)
-                if charger.get_bus_id() is None and self.charge_queue:
-                    in_bus = self.charge_queue.pop()
-                    in_bus.set_status("Charging")
-                    charger.set_bus(in_bus)
-                    charger.set_charge_time(5)
+                self.charger_Check(charger)
+                
 
 
 if __name__ == "__main__":

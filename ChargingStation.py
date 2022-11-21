@@ -7,16 +7,16 @@ class ChargingStation:
             bus_id -        bus id associated with a charging station.
             charge_time -   battery charge time.
         """
-        self.bus_id = None
+        self.bus = None
         self.charge_time = None
 
-    def get_bus_id(self) -> int:
+    def get_bus(self):
         """ Return a bus id associated with charging station. """
-        return self.bus_id
+        return self.bus
 
-    def set_bus(self, bus_id: int):
+    def set_bus(self, bus):
         """ Set a bus id to a charging station. """
-        self.bus_id = bus_id
+        self.bus = bus
 
     def get_charge_time(self) -> int:
         """ Return the charge time value. """
@@ -28,4 +28,4 @@ class ChargingStation:
 
     def reduce_charge_time(self):
         """ Method to reduce charge time by 1. """
-        self.charge_time += 1
+        self.charge_time += -1
