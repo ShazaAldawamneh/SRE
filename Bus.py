@@ -4,7 +4,7 @@ class Bus:
     def __init__(self, bus_id):
         """ Create a bus instance.
 
-        Args:
+        Attributes:
             bus_id-    unique id for each bus
             charge -    battery level (min:0, max:100)
             status -    default state of a bus
@@ -12,10 +12,10 @@ class Bus:
         """
         self.bus_id = bus_id
         self.charge = 100
-        self.status = "Parked"
+        self.status = "PARKED"
         self.route_id = None
         self.end_of_journey = False
-        self.states = ["Parked", "Queued", "Charging", "In Service"]
+        self.states = ["PARKED", "QUEUED", "CHARGING", "A-B","B-A","A-Depot","B-Depot","Depot-A","Depot-B"]
 
     def get_bus_id(self) -> int:
         """ Returns bus id. """
@@ -50,14 +50,17 @@ class Bus:
         """ Set route id associated with a Bus object. """
         self.route_id = new_route
 
-    def set_end_of_journey_false(self, end_flag: bool) -> None:
+    def set_end_of_journey(self, end_flag: bool) -> None:
         """ Set end of journey flag. """
         self.end_of_journey = end_flag
 
+    def subtract_charge(self, distance: int):
+        self.charge -= distance
+
     def __str__(self):
         """ String representation of a Bus object"""
-        a = f"\nBus ID:\t\t{str(self.bus_id)}\nCharge(%):\t{str(self.charge)}"
-        b = f"\nStatus:\t\t{str(self.status)}\nRoute ID:\t{str(self.route_id)}\n"
+        a = f"\tBus ID:\t\t{str(self.bus_id)}\n\tCharge(%):\t{str(self.charge)}"
+        b = f"\n\tStatus:\t\t{str(self.status)}\n\tRoute ID:\t{str(self.route_id)}\n"
         return a + b
 
 
