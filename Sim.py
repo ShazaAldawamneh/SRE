@@ -32,11 +32,12 @@ class Sim:
     def get_available_bus(self):
         """ #TODO Control flow graph here... and documentation. """
         for bus in self.buses:
+
             
             if bus.get_status() == "PARKED":  # and battery full?
                 return bus
         else:
-            
+
             return self.charger_drop_early()
 
     # sets the next bus that is parked to a particular route in a particular direction
@@ -73,20 +74,24 @@ class Sim:
             charger.set_charge_time(5)
 
     def charger_drop_early(self):
-  
+        
         for charge_time in range(1,6):
+            
             for charger in self.chargers:
-                #print(charger.get_charge_time())
+                print(charge_time)
+                print(charger.get_bus())
+                print(self.charge_queue)
                 
            
                 if charger.get_charge_time() ==charge_time:
                     print(charger.get_charge_time())
                     out_bus= charger.get_bus()
                    # print(charge_time)
+                
                     out_bus.set_charge(100-(20*charge_time))
                     charger.set_bus(None)
                     charger.set_charge_time(None)
-                    print(out_bus)
+  
                     return out_bus
 
     def loop(self):
@@ -94,7 +99,7 @@ class Sim:
 
         while True:
             self.count += 1
-            #print(self.count)
+            print(self.count)
             for bus in self.buses:
                 
 
@@ -131,7 +136,7 @@ class Sim:
                             bus.set_end_of_journey(True)  # fix wrong direction
                             bus.set_status("B-A")
                             next_bus = self.get_available_bus()  # gets new bus to replace previous
-                            
+
                             next_bus.set_route_id(bus.get_route_id())
                             next_bus.set_status("Depot-A")
                             
@@ -166,7 +171,8 @@ class Sim:
                         # entered depot
                         bus.set_status("QUEUED")
                         self.charge_queue.append(bus)  # adds to charging queue'
-
+                        print(bus)
+                    #print(bus)
             # control flow graph
             # TODO CFG
             for charger in self.chargers:  # iterates over charger to fill and then remove buses from them
