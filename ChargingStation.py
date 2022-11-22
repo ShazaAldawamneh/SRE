@@ -28,4 +28,4 @@ class ChargingStation:
 
     def reduce_charge_time(self):
         """ Method to reduce charge time by 1. """
-        self.charge_time += -1
+        self.charge_time -= 1

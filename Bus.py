@@ -54,6 +54,9 @@ class Bus:
         """ Set end of journey flag. """
         self.end_of_journey = end_flag
 
+    def subtract_charge(self, distance: int):
+        self.charge -= distance
+
     def __str__(self):
         """ String representation of a Bus object"""
         a = f"\nBus ID:\t\t{str(self.bus_id)}\nCharge(%):\t{str(self.charge)}"
