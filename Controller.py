@@ -123,8 +123,11 @@ class Controller:
                         # entered depot
                         bus.set_status("QUEUED")
                         self.charge_queue.enqueue(bus)  # adds to charging queue'
+                        bus.set_route_id(None)
                         print(self.charge_queue)
                     # print(bus)
+                print(bus)
+            print(f"*********END OF LOOP({self.count})*********\n")
             for charger in self.chargers:  # iterates over charger to fill and then remove buses from them
                 self.charger_dequeue(charger)
 
