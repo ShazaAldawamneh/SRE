@@ -1,6 +1,6 @@
 import Setup
 from ChargingStation import ChargingStation
-import Parser
+import Routes
 from random import randint
 from Queue import Queue
 
@@ -37,7 +37,7 @@ class Controller:
 
     def start_of_day(self):
         """ Assigns a bus to a route. """
-        routes = Parser.read_routes()
+        routes = Routes.read_routes()
         for i in routes:  # goes through every route and assigns a bus
             self.set_next_bus_to_route(i, "A-B")
             self.set_next_bus_to_route(i, "B-A")
@@ -75,11 +75,14 @@ class Controller:
         """ Method for looping through each bus and checking if it has reached the end of its journey. """
         while True:
             self.count += 1
-            print(f"Count: {self.count}")
+            print(f"************LOOP({self.count})************")
+            # print(f"************Loop:\t\t{self.count}*************\n\tLoop:\t\t{self.count}\n************END-OF-LOOP*************\n")
+            if not self.charge_queue.empty():
+                print(f"\t{self.charge_queue}")
             for bus in self.buses:
                 if randint(0, self.route_amount * 2) == 0:  # random check, bus has reached the end
                     if bus.get_status() == "A-B":  # checks direction
-                        current_route = Parser.get_route(bus.get_route_id())  # retrieves route information
+                        current_route = Routes.get_route(bus.get_route_id())  # retrieves route information
                         # performs the operation here
                         bus.subtract_charge(current_route["A-B"])
                         charge = bus.get_charge()
@@ -98,7 +101,7 @@ class Controller:
                         else:
                             bus.set_status("B-A")
                     elif bus.get_status() == "B-A":  # repeat as above but other direction
-                        current_route = Parser.get_route(bus.get_route_id())  # retrieves route information
+                        current_route = Routes.get_route(bus.get_route_id())  # retrieves route information
                         charge = bus.get_charge() - current_route["B-A"]
                         bus.set_charge(charge)
                         if bus.get_end_of_journey():
@@ -121,7 +124,7 @@ class Controller:
                         bus.set_status("QUEUED")
                         self.charge_queue.enqueue(bus)  # adds to charging queue'
                         print(self.charge_queue)
-                    print(bus)
+                    # print(bus)
             for charger in self.chargers:  # iterates over charger to fill and then remove buses from them
                 self.charger_dequeue(charger)
 

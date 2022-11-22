@@ -4,7 +4,7 @@ class Bus:
     def __init__(self, bus_id):
         """ Create a bus instance.
 
-        Args:
+        Attributes:
             bus_id-    unique id for each bus
             charge -    battery level (min:0, max:100)
             status -    default state of a bus
@@ -59,8 +59,8 @@ class Bus:
 
     def __str__(self):
         """ String representation of a Bus object"""
-        a = f"\nBus ID:\t\t{str(self.bus_id)}\nCharge(%):\t{str(self.charge)}"
-        b = f"\nStatus:\t\t{str(self.status)}\nRoute ID:\t{str(self.route_id)}\n"
+        a = f"\tBus ID:\t\t{str(self.bus_id)}\n\tCharge(%):\t{str(self.charge)}"
+        b = f"\n\tStatus:\t\t{str(self.status)}\n\tRoute ID:\t{str(self.route_id)}\n"
         return a + b
 
 

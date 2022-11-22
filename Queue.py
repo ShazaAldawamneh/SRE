@@ -4,6 +4,7 @@ from Bus import Bus
 class Queue:
     """ Class to represent the charging queue. """
     def __init__(self):
+        """ Initialises two lists. """
         self.queue1 = []
         self.queue2 = []
 
@@ -36,9 +37,9 @@ class Queue:
     def __str__(self):
         """ String method for displaying a queue. """
         if len(self.queue1) == 0:
-            return f"Charge Queue: <-empty-<\n"
-        string_list = [f"Charge Queue: <"]
+            return f"\tCharge Queue:\n\t>--empty-->\n"
+        string_list = [f"Charge Queue: >"]
         for item in self.queue1:
-            string_list.append('-' + str(item.bus_id))
-        string_list.append('-<\n')
+            string_list.append('--' + str(item.bus_id))
+        string_list.append('-->\n')
         return ''.join(string_list)
