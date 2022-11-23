@@ -45,7 +45,24 @@ class MyTestCase(unittest.TestCase):
         self.assertIsNone(test_controller.chargers[2].get_bus())
 
 
+    def test_controller_get_available_bus(self):
+        """  """
+        test_controller = Controller(0,3,1)
 
+        test_controller.charge_queue.enqueue(test_controller.buses[2])
+        test_controller.charger_dequeue(test_controller.chargers[0])
+
+        bus = test_controller.get_available_bus()
+        self.assertEqual(bus.get_bus_id(), 0)
+        bus.set_status("A-B")
+
+        bus = test_controller.get_available_bus()
+
+        self.assertEqual(bus.get_bus_id(), 1)
+        bus.set_status("A-B")
+
+        bus = test_controller.get_available_bus()
+        self.assertEqual(bus.get_bus_id(), 2)
 
 
 
