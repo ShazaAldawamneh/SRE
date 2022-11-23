@@ -12,10 +12,10 @@ class MyTestCase(unittest.TestCase):
         test_bus.subtract_charge(25)
         self.assertEqual(test_bus.get_charge(), 75)
 
-    def test_controller_drop_early(self):
-        """ Testing the drop_early() in the Controller class.
+    def test_controller_charger_drop_early(self):
+        """ Testing the charger_drop_early() in the Controller class.
 
-
+            An instance of the controller is made
          """
         test_controller = Controller(0, 5, 3)
 
@@ -30,6 +30,8 @@ class MyTestCase(unittest.TestCase):
         test_controller.chargers[2].set_charge_time(2)
 
         test_controller.charger_drop_early()
+
+        #print("bus charge", test_controller.chargers[1].get_bus().get_charge())
 
         self.assertIsNone(test_controller.chargers[0].get_bus())
         self.assertIsNotNone(test_controller.chargers[1].get_bus())
@@ -46,7 +48,7 @@ class MyTestCase(unittest.TestCase):
 
 
     def test_controller_get_available_bus(self):
-        """  """
+        """ Testing get available bus in the Controller class"""
         test_controller = Controller(0,3,1)
 
         test_controller.charge_queue.enqueue(test_controller.buses[2])

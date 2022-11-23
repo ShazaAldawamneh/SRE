@@ -23,10 +23,12 @@ class Controller:
 
     def get_available_bus(self):
         """ Method to return the id of the next available bus. """
+        flag = True
         for bus in self.buses:
             if bus.get_status() == "PARKED":
+                flag = False
                 return bus
-        else:
+        if flag:
             return self.charger_drop_early()
 
     def set_next_bus_to_route(self, route_id, direction):

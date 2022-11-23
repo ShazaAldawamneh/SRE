@@ -18,7 +18,10 @@ class Queue:
             self.queue1.append(self.queue2.pop())
 
     def dequeue(self) -> Bus:
-        """ Method to dequeue a bus. """
+        """ Method to dequeue a bus.
+
+        Returns the instance of the dequeued bus.
+        """
         if self.queue1:
             return self.queue1.pop()
 
@@ -27,11 +30,11 @@ class Queue:
         return self.queue1[-1]
 
     def empty(self) -> bool:
-        """ Return true if the charge queue is empty. """
+        """ Returns true if the charge queue is empty. """
         return not self.queue1
 
     def length(self) -> int:
-        """ Return the length of the queue. """
+        """ Returns the length of the queue. """
         return len(self.queue1)
 
     def __str__(self):

@@ -55,6 +55,7 @@ class Bus:
         self.end_of_journey = end_flag
 
     def subtract_charge(self, distance: int):
+        """ Subtracts the distance travelled to the charge after finishing the journey."""
         self.charge -= distance
 
     def __str__(self):
