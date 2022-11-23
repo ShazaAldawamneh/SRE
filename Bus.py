@@ -66,11 +66,3 @@ class Bus:
 
 
 
-if __name__ == "__main__":
-    test = Bus(1)
-    test2 = Bus(2)
-    test2.set_status(3)
-    test2.set_status("Charging")
-
-    print(test2)
-    # print(test)
