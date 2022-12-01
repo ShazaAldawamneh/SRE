@@ -5,44 +5,46 @@ class Queue:
     """ Class to represent the charging queue. """
     def __init__(self):
         """ Initialises two lists. """
-        self.queue1 = []
-        self.queue2 = []
+        self.queue = []
 
-    def enqueue(self, bus: Bus):
+   
+
+    def enqueue(self, newBus: Bus):
+
         """ Method for enqueueing a bus. """
-        while self.queue1:
-            self.queue2.append(self.queue1.pop())
-        self.queue1.append(bus)
+        for index, oldBus in enumerate(self.queue):
+            if newBus.get_charge() <= oldBus.get_charge():
+                self.queue.insert(index,newBus)
 
-        while self.queue2:
-            self.queue1.append(self.queue2.pop())
-
+                break
+        else: #Only is called when if statment never succeeds
+            self.queue.append(newBus) 
     def dequeue(self) -> Bus:
         """ Method to dequeue a bus.
 
         Returns the instance of the dequeued bus.
         """
-        if self.queue1:
-            return self.queue1.pop()
+        if self.queue:
+            return self.queue.pop()
 
     def top(self) -> Bus:
         """ Returns the bus at the top of the queue. """
-        return self.queue1[-1]
+        return self.queue[-1]
 
     def empty(self) -> bool:
         """ Returns true if the charge queue is empty. """
-        return not self.queue1
+        return not self.queue
 
     def length(self) -> int:
         """ Returns the length of the queue. """
-        return len(self.queue1)
+        return len(self.queue)
 
     def __str__(self):
         """ String method for displaying a queue. """
-        if len(self.queue1) == 0:
+        if len(self.queue) == 0:
             return f"\tCharge Queue:\n\t>--empty-->\n"
         string_list = [f"Charge Queue: >"]
-        for item in self.queue1:
+        for item in self.queue:
             string_list.append('--' + str(item.bus_id))
         string_list.append('-->\n')
         return ''.join(string_list)
