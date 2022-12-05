@@ -60,9 +60,6 @@ class Bus:
 
     def __str__(self):
         """ String representation of a Bus object"""
-        a = f"\tBus ID:\t\t{str(self.bus_id)}\n\tCharge(%):\t{str(self.charge)}"
-        b = f"\n\tStatus:\t\t{str(self.status)}\n\tRoute ID:\t{str(self.route_id)}\n"
+        a = f"\tBus ID:\t\t{str(self.bus_id)}\n\tCharge(%):\t\t{str(self.charge)}"
+        b = f"\n\tStatus:\t\t{str(self.status)}\n\tRoute ID:\t\t{str(self.route_id)}\n"
         return a + b
-
-
-
