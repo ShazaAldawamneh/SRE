@@ -8,9 +8,9 @@ from Queue import Queue
 class Controller:
     """ Controller class """
 
-    def __init__(self, count, bus_amount, route_amount):
+    def __init__(self, bus_amount, route_amount):
         """ Controller Constructor. """
-        self.count = count
+        self.count = 1
         self.bus_amount = bus_amount
         self.route_amount = route_amount
         self.buses = Setup.setup_bus(bus_amount)
@@ -59,7 +59,9 @@ class Controller:
             print(self.charge_queue)
             in_bus.set_status("CHARGING")
             charger.set_bus(in_bus)
-            charger.set_charge_time(5)
+            newChargetime = (100-in_bus.get_charge())//20
+            charger.set_charge_time(newChargetime)
+            print("here")
 
     def charger_drop_early(self):
         """ Method that returns bus with the highest charge. """
@@ -131,10 +133,11 @@ class Controller:
                 print(bus)
             print(f"*********END OF LOOP({self.count})*********\n")
             for charger in self.chargers:  # iterates over charger to fill and then remove buses from them
+                
                 self.charger_dequeue(charger)
 
 
 if __name__ == "__main__":
-    x = Controller(1, 50, 10)
+    x = Controller(50, 10)
     x.start_of_day()
     x.loop()
