@@ -53,7 +53,7 @@ class Controller:
                 out_bus.set_status("PARKED")
                 out_bus.set_charge(100)
                 charger.set_bus(None)
-                charger.set_charge_time == None
+                # charger.set_charge_time == None
         if charger.get_bus() is None and not self.charge_queue.empty():
             in_bus = self.charge_queue.dequeue()
             print(self.charge_queue)
@@ -73,12 +73,21 @@ class Controller:
                     charger.set_charge_time(None)
                     return out_bus
 
+    def end_loop(self, counter, max_loop):
+        if counter == max_loop:
+            return True
+        else:
+            return False
+
+
     def loop(self):
         """ Method for looping through each bus and checking if it has reached the end of its journey. """
+        # end_loop = False
         while True:
+            if self.end_loop(self.count, 100):
+                break
             self.count += 1
             print(f"************LOOP({self.count})************")
-            # print(f"************Loop:\t\t{self.count}*************\n\tLoop:\t\t{self.count}\n************END-OF-LOOP*************\n")
             if not self.charge_queue.empty():
                 print(f"\t{self.charge_queue}")
             for bus in self.buses:
