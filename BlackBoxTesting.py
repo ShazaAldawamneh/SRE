@@ -3,7 +3,7 @@ from Simulation import Simulation
 from Controller import Controller
 
 class BlackBoxTest(unittest.TestCase):
-    def test_simulation_valid(self):
+    def test_simulation_valid_part_one(self):
         """ Tests the simulation with valid inputs. Even amount of buses to the number of routes"""
         controller = Controller(50, 10)
         Simulation.sim_on_click(controller, 100)
