@@ -4,7 +4,7 @@ from Controller import Controller
 
 
 class GUI:
-    """TODO"""
+    """Design of the Graphical User Interface (GUI)."""
 
     def __init__(self, master):
         self.label = None
@@ -22,7 +22,7 @@ class GUI:
         self.create_widgets()
 
     def create_widgets(self):
-        """TODO"""
+        """Creates the button and label (widgets) needed to run the simulation."""
         self.btn = Button(self.master, text="Run", command=self.run)
         self.btn.pack(side=TOP)
 
@@ -51,7 +51,8 @@ class GUI:
         self.text.pack()
 
     def run(self):
-        """TODO"""
+        """Reads data from the GUI and input it on the simulation.
+            The status of the buses (output) is printed off to a textbox on the last loop."""
         controller = Controller(self.number_of_buses.get(), self.number_of_routes.get())
         Simulation.sim_on_click(controller, self.number_of_loops.get())
         for bus in controller.buses:
@@ -59,16 +60,16 @@ class GUI:
             self.text.insert(END, "\n")
 
     def clear(self):
-        """TODO"""
+        """Clears the textbox in which the output is printed off."""
         self.text.delete("1.0", END)
 
     def exit(self):
-        """TODO"""
+        """Exits the GUI."""
         self.master.destroy()
 
 
 class Main:
-    """TODO"""
+    """Initialises the GUI."""
     def __init__(self):
         self.root = Tk()
         self.gui = GUI(self.root)
