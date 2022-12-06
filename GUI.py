@@ -53,6 +53,7 @@ class GUI:
     def run(self):
         """Reads data from the GUI and input it on the simulation.
             The status of the buses (output) is printed off to a textbox on the last loop."""
+        self.text.delete("1.0", END)
         controller = Controller(self.number_of_buses.get(), self.number_of_routes.get())
         Simulation.sim_on_click(controller, self.number_of_loops.get())
         for bus in controller.buses:
