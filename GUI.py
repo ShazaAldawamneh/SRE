@@ -23,6 +23,7 @@ class GUI:
 
     def create_widgets(self):
         """Creates the button and label (widgets) needed to run the simulation."""
+
         self.btn = Button(self.master, text="Run", command=self.run)
         self.btn.pack(side=TOP)
 
@@ -54,6 +55,7 @@ class GUI:
         """Reads data from the GUI and input it on the simulation.
             The status of the buses (output) is printed off to a textbox on the last loop."""
         self.text.delete("1.0", END)
+
         controller = Controller(self.number_of_buses.get(), self.number_of_routes.get())
         Simulation.sim_on_click(controller, self.number_of_loops.get())
         for bus in controller.buses:
@@ -71,6 +73,7 @@ class GUI:
 
 class Main:
     """Initialises the GUI."""
+
     def __init__(self):
         self.root = Tk()
         self.gui = GUI(self.root)
