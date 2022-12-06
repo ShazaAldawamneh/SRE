@@ -3,7 +3,7 @@ from Bus import Bus
 from Controller import Controller
 
 
-class Test(unittest.TestCase):
+class WhiteBoxTest(unittest.TestCase):
     def test_bus_subtract_charge(self):
         """ Testing subtract_charge() in the Bus class.
 
