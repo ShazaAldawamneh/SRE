@@ -72,7 +72,9 @@ class Controller:
                     return out_bus
 
     def bus_manager(self, bus):
-        """TODO"""
+        """Method that manages bus' status by checking if it should hanging routes,
+            subtracting bus charge, redirecting if going back to depot,
+            sending replacement buses."""
         if bus.get_status() == "A-B":  # checks direction
             current_route = Routes.get_route(
                 bus.get_route_id())  # retrieves route information
